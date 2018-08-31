@@ -18,5 +18,4 @@ Route::get('/directory', function () {
     return view('directory');
 });
 
-Route::get('/register','registerController@index');
-Route::post('/register','registerController@store');
+Route::post('/register', 'registerController@store');

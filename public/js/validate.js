@@ -1,7 +1,7 @@
 $(document).ready(function () {
     validarNumeros();
 });
- 
+
 function validarNumeros() {
     $(".num").keydown(function (e) {
         if ($.inArray(e.keyCode, [171,187,189, 46, 8, 9, 27, 13]) !== -1 || (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) || (e.keyCode >= 35 && e.keyCode <= 40)) {
@@ -56,8 +56,8 @@ $('#rut').on('keyup', function(e){
             $('#rut').attr('style','border-radius:5px; border-color: green;');
             return true;
 
-        } else { 
-               
+        } else {
+
             $('#rut').attr('style','border-radius: 5px; border-color: red;');
             $('#statusRut').removeClass('hidden').html('*El Rut es incorrecto');
             return false;
@@ -149,4 +149,3 @@ function validaRut(r) {
         return e = 11 - a % 11, (11 == e ? 0 : 10 == e ? "k" : e) == r[1].toLowerCase()
     }
 }
-

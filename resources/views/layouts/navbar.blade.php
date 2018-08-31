@@ -1,63 +1,50 @@
 <!doctype html>
-<html lang="es">
+<html class="no-js" lang="en">
 
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{asset('css/bootstrap/css/bootstrap.css')}}">
-    <link rel="stylesheet" href="{{asset('css/bootstrap/css/bootstrap.min.css')}}">
-    <title>PDAO</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Demo Banco</title>
+    <meta name="description">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{asset('css/trust.css')}}">
+    @yield('css')
 </head>
-<body style="background: #f9f9f9;">
-    <!--Navbar-->
+
+<body>
     <header>
-        <div class="navbar navbar-dark shadow-sm fixed-top" style="background: blue;">
-            <div class="container">
-                <nav class="navbar navbar-expand-lg navbar-light">
-                    <a class="navbar-brand" href="index.html">
-                        <img style="width:80px;" src="img/logos/logo_trust.svg" alt="">
-                    </a>
-                    <div class="menu-wrapper d-lg-none" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <div class="hamburger-menu"></div>
-                    </div>
-                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                        <ul class="navbar-nav">
-                            <li class="nav-item ml-3">
-                                <a class="nav-item nav-link" style="font-size:13px;" href="index.html">Tablero</a>
+        <!--Navbar-->
+        <nav class="navbar navbar-dark fixed-top flex-md-nowrap p-1 shadow-sm">
+          <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"><img class="logo-banco" src="{{asset('img/logos/logo_banco_pacifico.svg')}}" alt=""></a>
+          <input class="form-control form-control-dark w-100" type="text" placeholder="Buscar" aria-label="Buscar">
+          <ul class=" navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+              <a class="nav-link" href="#">Cerrar Sesión</a>
+            </li>
+          </ul>
+        </nav>
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                    <div class="sidebar-sticky">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="far fa-home mr-2"></i>
+                                    <span data-feather="home"></span>Inicio<span class="sr-only">(current)</span>
+                                </a>
                             </li>
-                            <li class="nav-item ml-3 active">
-                                <a class="nav-item nav-link" style="font-size:13px;" href="{{url('directory')}}">Directorio<span class="sr-only">(current)</a>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{{url('directory')}}">
+                                    <i class="far fa-address-book mr-2"></i><span data-feather="file"></span>Directorio
+                                </a>
                             </li>
-                            <li class="nav-item ml-3">
-                                <a class="nav-item nav-link" style="font-size:13px;" href="#">Aplicaciones</a>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="far fa-cog mr-2"></i><span data-feather="users"></span>Ajustes
+                                </a>
                             </li>
-                            <li class="nav-item ml-3">
-                                <a class="nav-item nav-link" style="font-size:13px;" href="dispositivos_registrados.html">Dispositivos</span></a>
-                            </li>
-                            <li class="nav-item dropdown ml-3">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size:13px;">Seguridad</a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="#">Autenticación</a>
-                                    <a class="dropdown-item" href="#">Multifactor</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </li>
-                            <li class="nav-item ml-3">
-                                <a class="nav-item nav-link" style="font-size:13px;" href="#">Reportes</a>
-                            </li>
-                            <li class="nav-item ml-3">
-                                <a class="nav-item nav-link" style="font-size:13px;" href="#">Ajustes</a>
-                            </li>
-
-                            <li class="nav-item ml-3 d-lg-none">
-                                <a class="nav-item nav-link" style="font-size:13px; font-weight: bold; color: lightskyblue" href="#">Cerrar Sesión</a>
-                            </li>
-
-                            <div class="float-right ml-auto d-none d-lg-block">
-                                <a href="#"><i class="fas fa-power-off" style="color: #fff"></i></a>
-                            </div>
                         </ul>
                     </div>
                 </nav>
@@ -65,25 +52,17 @@
         </div>
     </header>
     <!-- Container content -->
-    <div class="container">
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
         @yield('content')
-    </div>
+        <!-- Alert trigger -->
+        <div id="alert-success" class="alert alert-primary alert-top shadow" role="alert"></div>
+    </main>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="{{asset('js/jquery/jquery.slim.js')}}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="{{asset('css/bootstrap/js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('js/js/fontawesome-all.js')}}"></script>
-
-    <script>
-        (function() {
-            $(".menu-wrapper").on("click", function() {
-                $(".hamburger-menu").toggleClass("animate");
-            });
-        })();
-    </script>
+    <script src="{{asset('js/jquery.min.js')}}"></script>
+    <script src="{{asset('js/popper.min.js')}}"></script>
+    <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <!-- Optional JavaScript -->
     @yield('scripts')
-
 </body>
 
 </html>
