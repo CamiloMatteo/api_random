@@ -11,6 +11,8 @@ class User extends Authenticatable
 
     const AUTOPASS = 'password';
     const CHANGEPASS = 1;
+    const ACTIVE = 1;
+    const INACTIVE = 0;
 
     /**
      * The attributes that are mass assignable.
@@ -28,6 +30,7 @@ class User extends Authenticatable
         'changepass',
         'rol',
         'authorization_method',
+        'condition',
     ];
 
     /**
@@ -36,6 +39,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'created_at', 'updated_at'
     ];
 }

@@ -21,10 +21,8 @@ function validateEmailREG(email) {
 function validateEmail(email) {
   if (validateEmailREG(email)) {
     $('#email').attr('style','border-radius: 5px; border-color: green;');
-    $('#statusEmail').removeClass('hidden').html('OK');
   } else {
     $('#email').attr('style','border-radius: 5px; border-color: red;');
-    $('#statusEmail').removeClass('hidden').html("Email no valido");
   }
   return false;
 }
@@ -52,20 +50,17 @@ $('#rut').on('keyup', function(e){
             dv = "k";
         }
         if (dv == RUT[1].toLowerCase()) {
-            $('#statusRut').removeClass('hidden').html('OK');
             $('#rut').attr('style','border-radius:5px; border-color: green;');
             return true;
 
         } else {
 
             $('#rut').attr('style','border-radius: 5px; border-color: red;');
-            $('#statusRut').removeClass('hidden').html('*El Rut es incorrecto');
             return false;
 
         }
     } else {
         $('#rut').attr('style','border-radius: 5px; border-color: red;');
-        $('#statusRut').removeClass('hidden').html('*Formato incorrecto');
         return false;
     }
 });

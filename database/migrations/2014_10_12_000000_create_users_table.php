@@ -21,13 +21,14 @@ class CreateUsersTable extends Migration
             $table->string('rut')->unique();
             $table->string('cellphone');
             $table->string('email')->unique();
-            $table->string('num_worker');
+            $table->integer('num_worker')->unique();
             $table->string('depto');
             $table->string('occupation');
             $table->string('password');
             $table->string('changepass');
             $table->string('rol');
             $table->string('authorization_method');
+            $table->string('condition');
             $table->rememberToken();
             $table->timestamps();
         });

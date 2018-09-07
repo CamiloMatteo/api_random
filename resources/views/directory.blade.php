@@ -70,14 +70,20 @@
                 <button type="button" class="btn btn-outline-secondary btn-sm ml-2 mb-2" style="font-size: 13px">
                     Restablecer la Contraseña
                 </button>
-                <button type="button" class="btn btn-outline-primary btn-sm ml-2 mb-2" style="font-size: 13px" data-toggle="modal" data-target="#registerUser">
+                <button type="button" class="btn btn-outline-primary btn-sm ml-2 mb-2" style="font-size: 13px" onclick="openRegister()" data-toggle="modal" data-target="#registerUser">
                     Agregar Empleado
                 </button>
             </div>
         </div>
+
+
+
         <div class="p-0">
             <div class="col-lg-12 table-responsive">
+
+
                 <table class="table table-hover" style="width: inherit !important; overflow-x: auto">
+
                     <thead>
                         <tr style="background-color: #f3f3f3">
                             <th scope="col">Persona & Username</th>
@@ -87,70 +93,18 @@
                         </tr>
                     </thead>
                     <tbody>
+                    @if(isset($users))
+                        @foreach ($users as $user)
                         <tr>
-                            <td class="table-user-name">Marcelo Sepúlveda
+                            <td class="table-user-name">{{ $user->name }}
                                 <br>
-                                <span class="table-user-mail">msepulveda@mail.com</span>
+                                <span class="table-user-mail">{{ $user->email }}</span>
                             </td>
-                            <td>msepulveda@mail.com</td> <td>Activo</td>
-                            <td><a href="#"><i class="far fa-pen"></i></a></td>
+                            <td>{{$user->email}}</td> <td>{{$user->condition == 1 ? 'Activo' : 'Inactivo'}}</td>
+                            <td><a onclick="getUser({{$user->id}})" style="cursor:pointer; color:#007bff;"><i class="far fa-pen"></i></a></td>
                         </tr>
-                        <tr>
-                            <td class="table-user-name">Octavio Flores
-                                <br>
-                                <span class="table-user-mail">oflores@mail.com</span>
-                            </td>
-                            <td>oflores@mail.com</td> <td>Activo</td>
-                            <td><a href="#"><i class="far fa-pen"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td class="table-user-name">Lidia Woods
-                                <br>
-                                <span class=" table-user-mail">lwoods@mail.com</span>
-                            </td>
-                            <td>lwoods@mail.com</td> <td>Inactivo</td>
-                            <td><a href="#"><i class="far fa-pen"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td class="table-user-name">Sandy Patterson
-                                <br>
-                                <span class="table-user-mail">spatterson@mail.com</span>
-                            </td>
-                            <td>spatterson@mail.com</td> <td>Activo</td>
-                            <td><a href="#"><i class="far fa-pen"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td class="table-user-name">Ernesto Figueroa
-                                <br>
-                                <span class="table-user-mail">efigueroa@mail.com</span>
-                            </td>
-                            <td>efigueroa@mail.com</td> <td>Activo</td>
-                            <td><a href="#"><i class="far fa-pen"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td class="table-user-name">Alberto Torres
-                                <br>
-                                <span class="table-user-mail">atorres@mail.com</span>
-                            </td>
-                            <td>atorres@mail.com</td> <td>Inactivo</td>
-                            <td><a href="#"><i class="far fa-pen"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td class="table-user-name">Enrrique Astudillo
-                                <br>
-                                <span class="table-user-mail">eastudillo@mail.com</span>
-                            </td>
-                            <td>eastudillo@mail.com</td> <td>Activo</td>
-                            <td><a href="#"><i class="far fa-pen"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td class="table-user-name">Germán Valenzuela
-                                <br>
-                                <span class="table-user-mail">gvalenzuela@mail.com</span>
-                            </td>
-                            <td>gvalenzuela@mail.com</td> <td>Activo</td>
-                            <td><a href="#"><i class="far fa-pen"></i></a></td>
-                        </tr>
+                        @endforeach
+                    @endif
                     </tbody>
                 </table>
             </div>
@@ -162,106 +116,102 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title" id="exampleModalLabel">Registro</h2>
+                <h2 class="modal-title" id="titleModal">Registro</h2>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <!--ERROR FOR THE MOMENT-->
-                @if  (isset($error))
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <strong>Holy guacamole! </strong> {{$error}}.
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                @endif
-                <form class="p-4" method="post" action="{{ url('register') }}" enctype="multipart/form-data">
+                <form id="formulario" class="p-4" method="post" enctype="multipart/form-data">
                     @csrf
                     <h5 class="mb-3">Datos personales</h5>
                     <div class="form-group">
-                        <label for="">Nombre</label>
-                        <input type="text" class="form-control form-control-sm form" id="inputName" name="name" required>
+                        <label for="inputName">Nombre</label>
+                        <input type="text" class="form-control form-control-sm form" id="name" name="name" required>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="">Apellido Paterno</label>
-                            <input type="text" class="form-control form-control-sm form" id="inputApellidoPaterno" name="first_surname" required placeholder="" />
+                            <input type="text" class="form-control form-control-sm form" id="first_surname" name="first_surname" required placeholder="" />
                         </div>
                         <div class="form-group col-md-6">
                             <label for="">Apellido Materno</label>
-                            <input type="text" class="form-control form-control-sm form" id="inputApellidoMaterno" name="second_surname" required>
+                            <input type="text" class="form-control form-control-sm form" id="second_surname" name="second_surname" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="">Rut</label>
-                            <input maxlength="12" type="text" class="form-control form-control-sm form" id="inputRut" name="rut" onkeyup="formatearRut(this)" onkeypress="return solorut(event, this);" required>
-                            <label for="inputRut" id="statusRut" value="" class=""></label>
+                            <input maxlength="12" type="text" class="form-control form-control-sm form" id="rut" name="rut" onkeyup="formatearRut(this)" onkeypress="return solorut(event, this);" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="">Número de teléfono</label>
-                            <input type="text" class="num form-control form-control-sm form" id="inputphone" name="cellphone" required placeholder="+569">
+                            <input maxlength="8" type="text" class="num form-control form-control-sm form" id="cellphone" name="cellphone" required placeholder="+569">
                         </div>
                     </div>
                     <h5 class="mt-3 mb-3">Datos para la empresa</h5>
                     <div class="form-group row">
                         <label for="" class="col-sm-3 col-form-label">Correo electrónico</label>
                         <div class="col-sm-9">
-                            <input maxlength="50" type="text" class="form-control form-control-sm form" id="inputMail" name="email" onkeyup="validateEmail(this.value)" required>
-                            <label for="email" id="statusEmail" value="" class="hidden"></label>
+                            <input maxlength="50" type="text" class="form-control form-control-sm form" id="email" name="email" onkeyup="validateEmail(this.value)" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-sm-3 col-form-label">Número trabajador</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm form" id="inputWorkerNumber" name="num_worker" required>
+                            <input type="text" class="form-control form-control-sm form" id="num_worker" name="num_worker" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-sm-3 col-form-label">Departamento</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm form" id="inputDepartment" name="depto" required>
+                            <input type="text" class="form-control form-control-sm form" id="depto" name="depto" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-sm-3 col-form-label">Cargo</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm form" id="inputCargo" name="occupation" required>
+                            <input type="text" class="form-control form-control-sm form" id="occupation" name="occupation" required>
                         </div>
                     </div>
                     <h5 class="mt-3 mb-3">Configuración</h5>
-
+                    <div id="pass_box">
                     <div class="d-flex justify-content-between">
                         <p>Generar una contraseña automáticamente</p>
                         <label class="switch">
                             <input type="checkbox" class="primary" name="autopass" id="autopass"><span class="slider round"></span>
                         </label>
                     </div>
-
                     <label for="inputPassword">Contraseña</label>
-                    <input type="password" id="inputPassword" name="password" class="form-control form-control-sm" required>
-
+                    <input type="password" id="password" name="password" class="form-control form-control-sm">
                     <small id="passwordHelpBlock" class="form-text text-muted">
                         La contraseña debe ser entre 8-20 caracteres, contener letras y números, sin espacios o caracteres especiales.
                     </small>
-                    <div class="d-flex justify-content-between mt-3">
+                    </div>
+                    <div id="contentChangepass" class="d-flex justify-content-between mt-3">
                         <p>Solicitar un cambios de contraseña la próxima vez que se inicie sesión</p>
                         <label class="switch active">
                             <input type="checkbox" id="changepass" name="changepass" class="primary"><span class="slider round"></span>
                         </label>
                     </div>
                     <hr>
+                    <div id="contentCondition" class="d-flex justify-content-between mt-3">
+                        <p>Activar o Desactivar Usuario</p>
+                        <label class="switch active">
+                            <input type="checkbox" id="condition" name="condition" class="primary"><span class="slider round"></span>
+                        </label>
+                    </div>
+                    <hr id="separator" class="">
                     <div class="d-flex justify-content-between mt-3">
                         <p>Rol</p>
-                        <div>
+                        <div id="box_rol">
+                            <input class="d-none" type="text" id="rol" value="">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="admin" required checked>
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radio_admin" value="admin">
                                 <label class="form-check-label" for="inlineRadio1">Admin</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="user">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radio_user" value="user" required checked>
                                 <label class="form-check-label" for="inlineRadio2">User</label>
                             </div>
                         </div>
@@ -269,25 +219,31 @@
                     <hr>
                     <div class="d-flex justify-content-between mt-3">
                         <p>Método de autorización</p>
-                        <div>
+                        <div id="box_auth">
+                            <input class="d-none" type="text" id="authorization_method" value="">
                             <div class="form-check">
-                                <input class="form-check-input micheckbox" type="checkbox" id="checkbox1" name="checkbox1" value="OTP" checked>
+                                <input class="form-check-input micheckbox" type="checkbox" id="method1" name="checkbox1" value="OTP" checked>
                                 <label class="form-check-label" for="checkbox1">OTP</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input micheckbox" type="checkbox" id="checkbox2" name="checkbox2" value="Biometrica">
+                                <input class="form-check-input micheckbox" type="checkbox" id="method2" name="checkbox2" value="Biometrica">
                                 <label class="form-check-label" for="checkbox2">Biometría Autentia</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input micheckbox" type="checkbox" id="checkbox3" name="checkbox3" value="YubiKey">
+                                <input class="form-check-input micheckbox" type="checkbox" id="method3" name="checkbox3" value="YubiKey">
                                 <label class="form-check-label" for="checkbox3">YubiKey</label>
                             </div>
                         </div>
                     </div>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer" id="btn_box">
                 <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancelar</button>
-                <button onclick="formValidation()" id="mensaje-1" type="submit" class="btn btn-primary btn-sm">Añadir</button>
+                <button class="btn btn-primary btn-sm" id="btn_register">Añadir</button>
+                <button class="btn btn-primary btn-sm" id="btn_update">Actualizar</button>
+                <button type="button" class="d-none" id="mensaje-1"></button>
+            </div>
+            <div id="box_id">
+                <input class="d-none" type="text" id="id" value="">
             </div>
         </form>
         </div>

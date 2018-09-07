@@ -11,11 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('directory');
-});
-Route::get('/directory', function () {
-    return view('directory');
-});
-
+Route::get('/', 'registerController@index');
+Route::get('/directory', 'registerController@index');
 Route::post('/register', 'registerController@store');
+Route::get('/users/{id}', 'registerController@show');
+Route::patch('/users/{num_worker}', 'registerController@update');
