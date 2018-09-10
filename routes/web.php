@@ -11,8 +11,10 @@
 |
 */
 
-Route::get('/', 'registerController@index');
-Route::get('/directory', 'registerController@index');
-Route::post('/register', 'registerController@store');
-Route::get('/users/{id}', 'registerController@show');
-Route::patch('/users/{num_worker}', 'registerController@update');
+Route::get('/', 'RegisterController@index');
+Route::get('/directory', 'RegisterController@index');
+Route::post('/register', 'RegisterController@store');
+Route::get('/users/{id}', 'RegisterController@show');
+Route::patch('/users/{user}', 'RegisterController@update');
+
+Route::get('/filter/{filter}', 'RegisterController@filter');

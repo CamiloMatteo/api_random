@@ -20,8 +20,12 @@
             <label class="form-check-label" for="exampleCheck1">Todos</label>
         </div>
         <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="">
+            <input type="checkbox" class="form-check-input filter" name="filter" id="check_active" value="active">
             <label class="form-check-label" for="">Activados</label>
+        </div>
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input filter" name="filter" id="check_inactive" value="inactive">
+            <label class="form-check-label" for="">Desactivado</label>
         </div>
         <div class="form-group form-check">
             <input type="checkbox" class="form-check-input" id="">
@@ -34,10 +38,6 @@
         <div class="form-group form-check">
             <input type="checkbox" class="form-check-input" id="">
             <label class="form-check-label" for="">Contraseña expirada</label>
-        </div>
-        <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="">
-            <label class="form-check-label" for="">Desactivado</label>
         </div>
         <!-- porsiacaZO
           <div class="form-group form-check">
@@ -75,15 +75,9 @@
                 </button>
             </div>
         </div>
-
-
-
         <div class="p-0">
             <div class="col-lg-12 table-responsive">
-
-
                 <table class="table table-hover" style="width: inherit !important; overflow-x: auto">
-
                     <thead>
                         <tr style="background-color: #f3f3f3">
                             <th scope="col">Persona & Username</th>
@@ -140,9 +134,10 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-6" id="box_rut">
                             <label for="">Rut</label>
                             <input maxlength="12" type="text" class="form-control form-control-sm form" id="rut" name="rut" onkeyup="formatearRut(this)" onkeypress="return solorut(event, this);" required>
+                            <input maxlength="12" type="text" class="form-control form-control-sm form  d-none" id="rut_old" name="rut_old">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="">Número de teléfono</label>
@@ -152,14 +147,16 @@
                     <h5 class="mt-3 mb-3">Datos para la empresa</h5>
                     <div class="form-group row">
                         <label for="" class="col-sm-3 col-form-label">Correo electrónico</label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-9" id="box_email">
                             <input maxlength="50" type="text" class="form-control form-control-sm form" id="email" name="email" onkeyup="validateEmail(this.value)" required>
+                            <input type="text" class="form-control form-control-sm form d-none" id="email_old" name="email_old">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-sm-3 col-form-label">Número trabajador</label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-9" id="box_num_worker">
                             <input type="text" class="form-control form-control-sm form" id="num_worker" name="num_worker" required>
+                            <input type="text" class="form-control form-control-sm form d-none" id="num_worker_old" name="num_worker_old">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -198,7 +195,7 @@
                     <div id="contentCondition" class="d-flex justify-content-between mt-3">
                         <p>Activar o Desactivar Usuario</p>
                         <label class="switch active">
-                            <input type="checkbox" id="condition" name="condition" class="primary"><span class="slider round"></span>
+                            <input type="checkbox" id="condition" name="condition" class="primary form"><span class="slider round"></span>
                         </label>
                     </div>
                     <hr id="separator" class="">
@@ -220,7 +217,7 @@
                     <div class="d-flex justify-content-between mt-3">
                         <p>Método de autorización</p>
                         <div id="box_auth">
-                            <input class="d-none" type="text" id="authorization_method" value="">
+                            <input class="d-none form" type="text" id="authorization_method" value="">
                             <div class="form-check">
                                 <input class="form-check-input micheckbox" type="checkbox" id="method1" name="checkbox1" value="OTP" checked>
                                 <label class="form-check-label" for="checkbox1">OTP</label>
@@ -251,6 +248,7 @@
 </div>
 @section('scripts')
     <script src="{{ asset('js/register.js') }}"></script>
+    <script src="{{ asset('js/directory.js') }}"></script>
     <script src="{{ asset('js/validate.js') }}"></script>
     <script src="{{ asset('js/shards.js') }}"></script>
     <script src="{{ asset('js/alert-top.js') }}"></script>

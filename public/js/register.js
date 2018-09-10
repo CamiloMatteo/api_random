@@ -6,7 +6,7 @@ $(window).on('load', function () {
     $('.micheckbox' ).on( 'click', function() {
         if( $(this).is(':checked') ){
         } else {
-            $('#checkbox1').prop('checked', true);
+            $('#method1').prop('checked', true);
         }
     });
 });
@@ -54,11 +54,13 @@ function save(){
                 dataType: "JSON",
                 cache: false,
                 success: function(data) {
-                    cleanModal();
+                    $('#registerUser').modal('toggle');
                     $('#alert-success').addClass('alert-primary').removeClass('d-none').html('Creado con Exito!');
                     $('#alert-success').removeClass('d-none').html('Creacion exitosa!');
                     $('#mensaje-1').click();
-                    window.location.reload();
+                    setTimeout(function(){
+                        window.location.reload();
+                    }, 1500);
                 },
                 error: function(error) {
                     if (error.status == 409){
@@ -86,6 +88,9 @@ function openRegister(){
         $('#rol').remove();
         $('#authorization_method').remove();
         $('#id').remove();
+        $('#email_old').remove();
+        $('#rut_old').remove();
+        $('#num_worker_old').remove();
         exist = 0
     }
 }
@@ -116,6 +121,9 @@ function modifyModal(userData){
     $('#separator').removeClass('d-none');
     //si no existe agregar
     if (exist == 0){
+        $('#box_num_worker').append('<input type="text" class="form-control form-control-sm form  d-none" id="num_worker_old" name="num_worker_old">');
+        $('#box_email').append('<input type="text" class="form-control form-control-sm form  d-none" id="email_old" name="email_old">');
+        $('#box_rut').append('<input type="text" class="form-control form-control-sm  d-none" id="rut_old" name="rut_old">');
         $('#btn_update').attr('type', 'submit');
         $('#box_auth').append('<input class="d-none" type="text" id="authorization_method" value="">');
         $('#box_rol').append('<input class="d-none" type="text" id="rol" value="">');
@@ -151,6 +159,19 @@ function modifyModal(userData){
             document.getElementById('method2').checked = true;
         }
     }
+
+    if ($('#email').val().length){
+        $('#email_old').val($('#email').val());
+    }
+    if ($('#rut').val().length){
+        $('#rut_old').val($('#rut').val());
+    }
+    if ($('#email').val().length){
+        $('#email_old').val($('#email').val());
+    }
+    if ($('#num_worker').val().length){
+        $('#num_worker_old').val($('#num_worker').val());
+    }
 }
 
 function updateUser(){
@@ -166,16 +187,21 @@ function updateUser(){
 
         if(i == 0){
             var id = $('#id').val();
-            var rut = $('#rut').val();
-            var email = $('#email').val();
+            var email_old = $('#email_old').val();
+            var rut_old = $('#rut_old').val();
+            var num_worker_old = $('#num_worker_old').val();
             var data = $('#formulario').serializeArray();
             data.forEach(function (item) {
-              if (item.name == "rut" && item.value == rut) {
+              if (item.name == "email" && item.value == email_old) {
                   item.value = "";
               }
-              console.log(item);
+              if (item.name == "rut" && item.value == rut_old) {
+                  item.value = "";
+              }
+              if (item.name == "num_worker" && item.value == num_worker_old) {
+                  item.value = "";
+              }
             });
-            return false;
             $.ajax({
                 type: "PATCH",
                 url: "/users/" + id,
@@ -186,12 +212,13 @@ function updateUser(){
                 dataType: "JSON",
                 cache: false,
                 success: function(data) {
-                    console.log(data);
-                    $('#alert-success').addClass('alert-primary').removeClass('d-none').html('Creado con Exito!');
+                    $('#registerUser').modal('toggle');
+                    $('#alert-success').addClass('alert-primary').removeClass('d-none').html('Actualizacion exitosa!');
                     $('#alert-success').removeClass('d-none').html('Actualizacion exitosa!');
                     $('#mensaje-1').click();
-                    cleanModal();
-                    window.location.reload();
+                    setTimeout(function(){
+                        window.location.reload();
+                    }, 1200);
                 },
                 error: function(error) {
                     if (error.status == 409){
