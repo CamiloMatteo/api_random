@@ -20,9 +20,9 @@ function validateEmailREG(email) {
 
 function validateEmail(email) {
   if (validateEmailREG(email)) {
-    $('#email').attr('style','border-radius: 5px; border-color: green;');
+    //$('#email').attr('style','border-radius: 5px; border-color: green;');
   } else {
-    $('#email').attr('style','border-radius: 5px; border-color: red;');
+    //$('#email').attr('style','border-radius: 5px; border-color: red;');
   }
   return false;
 }
@@ -50,17 +50,17 @@ $('#rut').on('keyup', function(e){
             dv = "k";
         }
         if (dv == RUT[1].toLowerCase()) {
-            $('#rut').attr('style','border-radius:5px; border-color: green;');
+            //$('#rut').attr('style','border-radius:5px; border-color: green;');
             return true;
 
         } else {
 
-            $('#rut').attr('style','border-radius: 5px; border-color: red;');
+            //$('#rut').attr('style','border-radius: 5px; border-color: red;');
             return false;
 
         }
     } else {
-        $('#rut').attr('style','border-radius: 5px; border-color: red;');
+        //$('#rut').attr('style','border-radius: 5px; border-color: red;');
         return false;
     }
 });

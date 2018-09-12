@@ -222,7 +222,7 @@ function updateUser(){
                 },
                 error: function(error) {
                     if (error.status == 409){
-                        $('#alert-success').removeClass('alert-primary').addClass('alert-danger').removeClass('d-none').html('Usuario ya existe!');
+                        $('#alert-success').removeClass('alert-primary').addClass('alert-danger').removeClass('d-none').html('Rut/Email/Num trabajador, ya esta siendo utilizado!');
                         $('#mensaje-1').click();
                     }
                 }

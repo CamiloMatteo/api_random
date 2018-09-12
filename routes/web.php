@@ -10,11 +10,14 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//ruta index
 Route::get('/', 'RegisterController@index');
 Route::get('/directory', 'RegisterController@index');
-Route::post('/register', 'RegisterController@store');
+
+//ruta crud user
 Route::get('/users/{id}', 'RegisterController@show');
 Route::patch('/users/{user}', 'RegisterController@update');
+Route::post('/register', 'RegisterController@store');
 
-Route::get('/filter/{filter}', 'RegisterController@filter');
+//ruta filtros
+Route::get('/directory/{value}', 'RegisterController@fillTable');

@@ -11,8 +11,7 @@ class RegisterController extends Controller
 {
     public function index()
     {
-        $users = DB::table('users')->orderBy('num_worker', 'asc')->get();
-        return view('directory', ['users' => $users]);
+        return view('directory');
     }
 
     public function show(Request $request)
@@ -57,11 +56,12 @@ class RegisterController extends Controller
             ));
             return response()->json([
                 'status' => 'created',
-                'message' => 'User Updateado'
+                'message' => 'Actualizacion exitosa :)'
             ], 201);
         } else {
             return response()->json([
-                'message' => 'User already exists!'
+                'status' => 'conflic',
+                'message' => 'Rut/Email/Num trabajador, ya esta siendo utilizado!'
             ], 409);
         }
     }
@@ -105,10 +105,19 @@ class RegisterController extends Controller
         //
     }
 
-    public function filter($filter)
+    public function fillTable($value)
     {
-        dd($filter);
+        if ($value == 'active'){
+            $users = DB::table('users')->where('condition', USER::ACTIVE)->orderBy('num_worker', 'desc')->get();
+        } else if ($value == 'inactive') {
+            $users = DB::table('users')->where('condition', USER::INACTIVE)->orderBy('num_worker', 'desc')->get();
+        } else {
+            $users = DB::table('users')->orderBy('num_worker', 'desc')->get();
+        }
+        return response()->json([
+            'message' => 'success',
+            'data' => $users,
+        ], 200);
     }
-
 
 }

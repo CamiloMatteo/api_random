@@ -13,10 +13,10 @@
             <h6 class="mt-4 mb-4 lead">Empleados</h6>
         </div>
         <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2 mb-3 search-interior" type="search" placeholder="Buscar" aria-label="Search" />
+            <input class="form-control mr-sm-2 mb-3 search-interior"  type="text" id="search" placeholder="Buscar" aria-label="Search" />
         </form>
         <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="">
+            <input type="checkbox" class="form-check-input filter" name="filter" id="check_all" value="all">
             <label class="form-check-label" for="exampleCheck1">Todos</label>
         </div>
         <div class="form-group form-check">
@@ -27,6 +27,7 @@
             <input type="checkbox" class="form-check-input filter" name="filter" id="check_inactive" value="inactive">
             <label class="form-check-label" for="">Desactivado</label>
         </div>
+        <!-- porsiacaZO
         <div class="form-group form-check">
             <input type="checkbox" class="form-check-input" id="">
             <label class="form-check-label" for="">Activación Pendiente</label>
@@ -39,7 +40,6 @@
             <input type="checkbox" class="form-check-input" id="">
             <label class="form-check-label" for="">Contraseña expirada</label>
         </div>
-        <!-- porsiacaZO
           <div class="form-group form-check">
             <input type="checkbox" class="form-check-input" id="">
             <label class="form-check-label" for="">Suspendido</label>
@@ -77,7 +77,7 @@
         </div>
         <div class="p-0">
             <div class="col-lg-12 table-responsive">
-                <table class="table table-hover" style="width: inherit !important; overflow-x: auto">
+                <table class="table table-hover" style="width: inherit !important; overflow-x: auto" id="table_id">
                     <thead>
                         <tr style="background-color: #f3f3f3">
                             <th scope="col">Persona & Username</th>
@@ -86,19 +86,7 @@
                             <th scope="col">Editar</th>
                         </tr>
                     </thead>
-                    <tbody>
-                    @if(isset($users))
-                        @foreach ($users as $user)
-                        <tr>
-                            <td class="table-user-name">{{ $user->name }}
-                                <br>
-                                <span class="table-user-mail">{{ $user->email }}</span>
-                            </td>
-                            <td>{{$user->email}}</td> <td>{{$user->condition == 1 ? 'Activo' : 'Inactivo'}}</td>
-                            <td><a onclick="getUser({{$user->id}})" style="cursor:pointer; color:#007bff;"><i class="far fa-pen"></i></a></td>
-                        </tr>
-                        @endforeach
-                    @endif
+                    <tbody id="fillTable">
                     </tbody>
                 </table>
             </div>
