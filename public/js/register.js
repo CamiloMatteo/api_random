@@ -46,7 +46,6 @@ function save(){
 
         if(i == 0){
             var data = $('#formulario').serialize();
-            console.log(data);
             $.ajax({
                 type: "POST",
                 url: "/register",
@@ -119,7 +118,6 @@ function modifyModal(userData){
     $('#contentChangepass').removeClass('d-flex').addClass('d-none');
     $('#contentCondition').removeClass('d-none').addClass('d-flex');
     $('#separator').removeClass('d-none');
-    //si no existe agregar
     if (exist == 0){
         $('#box_num_worker').append('<input type="text" class="form-control form-control-sm form  d-none" id="num_worker_old" name="num_worker_old">');
         $('#box_email').append('<input type="text" class="form-control form-control-sm form  d-none" id="email_old" name="email_old">');
@@ -214,7 +212,7 @@ function updateUser(){
                 success: function(data) {
                     $('#registerUser').modal('toggle');
                     $('#alert-success').addClass('alert-primary').removeClass('d-none').html('Actualizacion exitosa!');
-                    $('#alert-success').removeClass('d-none').html('Actualizacion exitosa!');
+                    $('#alert-success').removeClass('d-none');
                     $('#mensaje-1').click();
                     setTimeout(function(){
                         window.location.reload();
